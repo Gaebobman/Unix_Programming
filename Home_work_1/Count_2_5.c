@@ -24,15 +24,15 @@ int main(){
     int linecount = 0;
 
     printf("Enter file name: ");
-    // scanf("%s", command);
+    scanf("%s", command);
 
-    if((fd = open("./newfile", O_RDONLY)) == -1){
+    if((fd = open(command, O_RDONLY)) == -1){
         printf("open() Error!\n");
         exit(1);
     }else{
         read(fd,buf,BUFSIZE);
         for(int i = 0 ; i < sizeof(buf); i++){
-            printf("%c", buf[i]);
+            // printf("%c", buf[i]);
             
             // Words are identified by spaces so...
             if(buf[i] == ' ' || buf[i] == '\t' || buf[i] == '\v' || buf[i] == '\f' || buf[i] == '\r'){
@@ -49,7 +49,7 @@ int main(){
             }
         }
     }
-    printf("Number of words: %d\nNumber of lines: %d", wordcount+1, linecount +1);
+    printf("Number of words: %d\nNumber of lines: %d\n", wordcount+2, linecount +1);
     close(fd);
     return 0;
 }
