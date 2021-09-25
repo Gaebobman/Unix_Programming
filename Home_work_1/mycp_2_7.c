@@ -6,6 +6,7 @@
 #define BUFSIZE 512
 #define FMODE O_WRONLY | O_CREAT | O_TRUNC 
 #define PERM 0644
+#define FILENAMESIZE 100
 
 int copyfile(const char *name1, const char *name2){
     int infile, outfile;
@@ -33,4 +34,27 @@ int copyfile(const char *name1, const char *name2){
 
     if(nread == -1) return(-4);
     else return (0);
+}
+
+int main(){
+    char file1[FILENAMESIZE], file2[FILENAMESIZE];
+    printf("Enter Name Of Original File: ");
+    scanf("%s", file1);
+    printf("Enter Name Of Destination File: ");
+    scanf("%s", file2);
+    switch (copyfile(file1, file2))
+    {
+    case -1:
+        printf("There is no such Origianl file: %s !!!\n", file1);
+        break;
+    case -2:
+        printf("There is no such Destination file: %s !!!\n", file2);
+         break;
+    case -3:
+        printf("Error while writing file !!!\n");
+         break;
+    default:
+        printf("COPY SUCCEED !!! \n");
+        break;
+    }
 }
