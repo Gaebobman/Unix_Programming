@@ -20,8 +20,9 @@ int main(){
     // ssize_t ;
     char command[100];
     char buf[BUFSIZE];
-    int wordcount = 1;
+    int wordcount = 0;
     int linecount = 0;
+    int spacecount = 0;
 
     printf("Enter file name: ");
     scanf("%s", command);
@@ -36,20 +37,27 @@ int main(){
             
             // Words are identified by spaces so...
             if(buf[i] == ' ' || buf[i] == '\t' || buf[i] == '\v' || buf[i] == '\f' || buf[i] == '\r'){
-                wordcount++;
+                spacecount++;
             }
             
             if(buf[i] == '\n'){
                 linecount++;
             }
 
-            //End Loop when buf[i] is EOF
             if(buf[i]<0 || buf[i]>127 ){
                 break;
             }
         }
     }
-    printf("Number of words: %d\nNumber of lines: %d\n", wordcount+2, linecount +1);
+    if(sizeof(buf) == linecount){
+        wordcount = 0;
+        linecount = 0;
+    }else{
+        wordcount = spacecount +1;
+        linecount++;
+    }
+    
+    printf("Number of words: %d\nNumber of lines: %d\n", wordcount, linecount);
     close(fd);
     return 0;
 }
