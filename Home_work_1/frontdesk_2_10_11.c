@@ -115,7 +115,7 @@ int main()
     char guestname[NAMELENGTH];
     while (command != -1)
     {
-        printf("\n######################\n1. getoccupier\n2. freeroom\n3.addguest\n4.findfree\n######################\nEnter service number, -1 to exit: ");
+        printf("\n######################\n1. getoccupier\n2. freeroom\n3. addguest\n4. findfree\n######################\nEnter service number, -1 to exit: ");
         scanf("%d", &command);
         switch (command)
         {
