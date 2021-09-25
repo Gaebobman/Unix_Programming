@@ -31,6 +31,7 @@ int main()
 
                 fd = open(filename, O_WRONLY);
                 checkfd(fd);
+                close(fd);
                 return 0;
             }
         }
@@ -49,5 +50,6 @@ int main()
     }
 
     checkfd(fd);
+    close(fd);
     return 0;
 }
