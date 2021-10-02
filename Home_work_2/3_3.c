@@ -92,4 +92,6 @@ int main()
     scanf("%s", permission);
     lsoct(permission, oct_permission);
     octls(oct_permission);
+
+    return 0;
 }
