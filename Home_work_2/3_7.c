@@ -54,7 +54,6 @@ int main(int argc, char *argv[])
             {
                 perror("Permissions have not changed: ");
             }
-            
         }
     }
     else
@@ -76,17 +75,17 @@ mode_t lsoct(char *permission)
             case 0:
             case 1:
             case 2:
-                oct_permission[1] += WEIGHT[i] -'0';
+                oct_permission[1] += WEIGHT[i] - '0';
                 break;
             case 3:
             case 4:
             case 5:
-                oct_permission[2] += WEIGHT[i]-'0';
+                oct_permission[2] += WEIGHT[i] - '0';
                 break;
             case 6:
             case 7:
             case 8:
-                oct_permission[3] += WEIGHT[i]-'0';
+                oct_permission[3] += WEIGHT[i] - '0';
                 break;
             default:
                 break;
