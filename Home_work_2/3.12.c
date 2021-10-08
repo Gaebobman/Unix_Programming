@@ -3,7 +3,7 @@
 #include <sys/stat.h>
 #include <unistd.h>
 
-char *USAGE = "USAGE: <filename> <OCTAL_PERMISSION>";
+char *USAGE = "USAGE: ./3.12 <MODE> <FILE>\n       ./3.12 <OCTAL-MODE> <FILE>\n EX) ./3.12 U+rx filename    OR ./3.12 0777 filename ";
 int main(int argc, char *argv[])
 {
     mode_t mode;
@@ -19,18 +19,6 @@ int main(int argc, char *argv[])
         printf("File %s does not exists", argv[2]);
         return -1;
     }
-    //if file exists, Check READ PERMISSION on file
-    // if (access(argv[1], R_OK) == -1)
-    // {
-    //     printf("You don't have READ PERMISSION on %s", argv[1]);
-    //     return -1;
-    // }
-    //if file exists, Check WRITE PERMISSION on file
-    // if (access(argv[1], W_OK) == -1)
-    // {
-    //     printf("You don't have WRITE PERMISSION on %s", argv[1]);
-    //     return -1;
-    // }
     if (argv[1][0] == '0')
     { //If argv[2] is in 0XXX format
         //convert arg[2] to mode_t, char* => mode_t(unsigned int)
