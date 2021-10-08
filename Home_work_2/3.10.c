@@ -56,14 +56,7 @@ int main(int argc, char *argv[])
                     }
                     else
                     { //if last modified time is different
-                        printf("\n####################\nMODIFICATION DETECTED !!!\n####################\n\n Copy in [5]");
-
-                        for (int i = 4; i > 0; i--)
-                        {
-                            sleep(1);
-                            printf(", [% d]", i);
-                        }
-                        printf("\n");
+                        printf("\n############################\nMODIFICATION DETECTED !!!\n############################\n");
                         break;
                     }
                     last_modified_time = stat_buffer.st_mtime;
