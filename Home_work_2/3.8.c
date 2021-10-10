@@ -17,9 +17,9 @@ int main(int argc, char *argv[])
         return -1;
     }
 
-    if (access(argv[1], W_OK == -1))
+    if (access(argv[1], W_OK) == -1)
     {
-        printf("You don't have WRITE PERMISSION");
+        printf("You don't have WRITE PERMISSION\n");
         return -1;
     }
     else
@@ -45,7 +45,7 @@ int main(int argc, char *argv[])
             printf("Insert only y, Y, n, N \n");
         }
     }
-    printf("unlink on %s succeeded", argv[1]);
+    printf("unlink on %s succeeded\n", argv[1]);
 
     return 0;
 }

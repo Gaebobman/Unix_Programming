@@ -10,8 +10,6 @@
 #define PERM_LENGTH 9
 #define OCT_PERM_LENGTH 4
 
-const char WEIGHT[] = {'4', '2', '1', '4', '2', '1', '4', '2', '1'};
-
 mode_t lsoct(char *permission);
 
 int main(int argc, char *argv[])

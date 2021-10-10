@@ -8,10 +8,6 @@ const char PERMSET[] = {'r', 'w', 'x', 'r', 'w', 'x', 'r', 'w', 'x'};
 
 void lsoct(char *permission, int *oct_permission)
 {
-    // for(int i = 0 ; i< PERM_LENGTH; i++){
-    //     printf("%c", permission[i]);
-    // }
-
     for (int i = 0; i <= PERM_LENGTH; i++)
     {
         if (permission[i] != '-')
