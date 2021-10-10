@@ -65,7 +65,8 @@ int main(int argc, char *argv[])
 
 mode_t lsoct(char *permission)
 {
-    char oct_permission[OCT_PERM_LENGTH] = {'0'};
+    mode_t oct_permission = 0b0;
+
     for (int i = 0; i <= PERM_LENGTH; i++)
     {
         if (permission[i] != '-')
@@ -73,35 +74,36 @@ mode_t lsoct(char *permission)
             switch (i)
             {
             case 0:
+                oct_permission |= 0b100000000;
+                break;
             case 1:
+                oct_permission |= 0b010000000;
+                break;
             case 2:
-                oct_permission[1] += WEIGHT[i] - '0';
+                oct_permission |= 0b001000000;
                 break;
             case 3:
+                oct_permission |= 0b000100000;
+                break;
             case 4:
+                oct_permission |= 0b000010000;
+                break;
             case 5:
-                oct_permission[2] += WEIGHT[i] - '0';
+                oct_permission |= 0b000001000;
                 break;
             case 6:
+                oct_permission |= 0b000000100;
+                break;
             case 7:
+                oct_permission |= 0b000000010;
+                break;
             case 8:
-                oct_permission[3] += WEIGHT[i] - '0';
+                oct_permission |= 0b000000001;
                 break;
             default:
                 break;
             }
         }
     }
-    mode_t mode;
-    char S = oct_permission[3];
-    char USER_CHAR = oct_permission[2];
-    char GROUP_CHAR = oct_permission[1];
-    char OTHER_CHAR = oct_permission[0];
-
-    mode = OTHER_CHAR;
-    mode |= GROUP_CHAR << 3;
-    mode |= USER_CHAR << 6;
-    mode |= S << 9;
-
-    return mode;
+    return oct_permission;
 }
