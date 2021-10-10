@@ -72,16 +72,18 @@ int main(int argc, char *argv[])
         for (int i = perm_length - 1; i >= 2; i--)
         { //mode set
             int tmp_mode = argv[1][i] - 0;
-            mode |= 0 << 9;
             switch (tmp_mode)
             {
             case 'r' - 0:
+            case 'R' - 0:
                 mode += 4;
                 break;
             case 'w' - 0:
+            case 'W' - 0:
                 mode += 2;
                 break;
             case 'x' - 0:
+            case 'X' - 0:
                 mode += 1;
                 break;
             }
@@ -103,7 +105,7 @@ int main(int argc, char *argv[])
             // We don't have to shift for others permission(these are 3 LSB)
             break;
         }
-
+        mode |= 0 << 9;
         //get current mode
         if (stat(argv[2], &stat_buffer) == -1)
         {
@@ -119,7 +121,7 @@ int main(int argc, char *argv[])
         if (argv[1][1] == '-')
         {
             //if minus of permission
-            stat_buffer.st_mode -= mode;
+            stat_buffer.st_mode -= mode & stat_buffer.st_mode;
         }
         else if (argv[1][1] == '+')
         {
