@@ -94,10 +94,10 @@ int main(int argc, char **argv)
         // setting for background process
         cmdvector[numberOfCommand -1][0] = '\0';
         cmdvector[numberOfCommand -1] = '\0';
-        execvp(cmdvector[0], cmdvector);
         signal(SIGINT, SIG_IGN);
         signal(SIGQUIT, SIG_IGN);
         signal(SIGTSTP, SIG_IGN);
+        execvp(cmdvector[0], cmdvector);
         exit(1);
       }
       else{
