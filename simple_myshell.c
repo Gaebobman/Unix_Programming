@@ -2,6 +2,7 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <signal.h>
 #define MAX_CMD_ARG 10
 #define BUFSIZ 256
 
@@ -9,6 +10,14 @@ const char *prompt = "myshell> ";
 char *cmdvector[MAX_CMD_ARG];
 char cmdline[BUFSIZ];
 
+static void child_SIG(int unused){
+  // int wstatus;
+  // while((waitpid(-1, &wstatus, WNOHANG))>0){};
+  while((waitpid(-1, NULL, WNOHANG))>0){};
+}
+void handler(int unused){
+  // printf("\n");
+}
 void fatal(char *str)
 {
   perror(str);
@@ -46,10 +55,22 @@ int main(int argc, char **argv)
   int numberOfCommand = 0;
   int status;
   pid_t pid;
+  signal(SIGINT, handler);
+  signal(SIGQUIT, handler);
+  signal(SIGTSTP, handler);
+  signal(SIGCHLD, child_SIG);
+  
+  // signal(SIGCHLD, (void*) child_SIG);
+
   while (1)
   {
     fputs(prompt, stdout);
     fgets(cmdline, BUFSIZ, stdin);
+    if(!strcmp("\n", cmdline) || !strcmp("^Z", cmdline) || !strcmp("^\\", cmdline) ){
+      // command line input SIGINT, SIGQUIT, SIGTSPT continue
+      continue;
+    }
+
     cmdline[strlen(cmdline) - 1] = '\0';
 
     if (!strcmp("exit", cmdline))
@@ -58,6 +79,8 @@ int main(int argc, char **argv)
       break;
     }
 
+
+    
     switch (pid = fork())
     {
     case 0:
@@ -68,10 +91,19 @@ int main(int argc, char **argv)
         exit(1);
       }
       if(cmdvector[numberOfCommand -1][0] == '&'){
+        // setting for background process
         cmdvector[numberOfCommand -1][0] = '\0';
         cmdvector[numberOfCommand -1] = '\0';
         execvp(cmdvector[0], cmdvector);
+        signal(SIGINT, SIG_IGN);
+        signal(SIGQUIT, SIG_IGN);
+        signal(SIGTSTP, SIG_IGN);
         exit(1);
+      }
+      else{
+        signal(SIGINT, SIG_DFL);
+        signal(SIGQUIT, SIG_DFL);
+        signal(SIGTSTP, SIG_DFL);
       }
       execvp(cmdvector[0], cmdvector);
       fatal("main()");
